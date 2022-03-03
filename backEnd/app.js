@@ -8,6 +8,8 @@ const { enviroment } = require('./config');
 const isProduction = enviroment === 'production';
 const routes = require('./routes');
 const {ValidationError} =require('sequelize');
+// const bcrypt = requires(bcrypt) in seeder.
+// TODO where to import to hash new passwords
 
 
 const app = express();
@@ -80,7 +82,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-
-
-
+// Middleware finished
+/////////////////////////////////////////////////////
 module.exports = app;
