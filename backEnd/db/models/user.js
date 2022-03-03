@@ -1,4 +1,6 @@
 'use strict';
+const { Validator } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   // Some things, like unique, could be defined here and in migrations
   // It could be considered very explicit, but also redundant
@@ -11,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [4, 30],
         // isEmail: false   would like to test this out to see if it could work. Not sure
         isNotEmail(value) {
-          if (Validator.isEmail(value)) { throw new Error('Cannot be an email.')}
+          if (Validator.isEmail(value)) { throw new Error('Cannot be an email.') }
         }
       }
     },
@@ -27,11 +29,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
-        len: [60,60]
+        len: [60, 60]
       }
     }
-  }, {});
-  User.associate = function(models) {
+  },
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
+        }
+      },
+      scopes: {
+        currentUser: {
+          attributes: { exclude: ['hashedPassword']}
+        },
+        loginUser: {
+          attributes: {}
+        }
+      }
+    });
+
+  User.associate = function (models) {
     // associations can be defined here
   };
   return User;
