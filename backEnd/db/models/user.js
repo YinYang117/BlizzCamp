@@ -2,49 +2,6 @@
 const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-// TODO
-// what scope do these need to be nested in
-User.getCurrentUserById = async function (id) {
-  return await User.scope('currentUser').findByPk(id);
-};
-
-User.prototype.toSafeObject = function() { // this cannot be an arrow function
-  const { id, username, email } = this; // context will be the User instance
-  return { id, username, email };
-};
-
-User.prototype.validatePassword = function (password) {
-   return bcrypt.compareSync(password, this.hashedPassword.toString())
-}
-
-User.login = async function ({ credential, password }) {
-// credential could be email or username as both are unique
-// Should allow user to enter either-or to login
-  const { Op } = require('sequelize');
-  const user = await User.scope('loginUser').findOne({
-    where: {
-      [Op.or]: {
-        username: credential,
-        email: credential
-      }
-    }
-  });
-
-  if (user && user.validatePassword(password)) {
-    return await User.scope('currentUser').findByPk(user.id)
-  }
-}
-
-User.signup = async function ({ username, email, password }) {
-  const hashedPassword = bcrypt.hashSync(password);
-  const user = await User.create({
-    username,
-    email,
-    hashedPassword
-  });
-  return await User.scope('currentUser').findByPk(user.id);
-};
-
 module.exports = (sequelize, DataTypes) => {
   // Some attributes, like unique, could be defined here and in migrations
   // It'd explicit, also redundant
@@ -86,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         currentUser: {
-          attributes: { exclude: ['hashedPassword']}
+          attributes: { exclude: ['hashedPassword'] }
           // returns a user obj without the hashedpass making it to the frontend
         },
         loginUser: {
@@ -95,6 +52,47 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     });
+
+  User.getCurrentUserById = async function (id) {
+    return await User.scope('currentUser').findByPk(id);
+  };
+
+  User.prototype.toSafeObject = function () { // this cannot be an arrow function
+    const { id, username, email } = this; // context will be the User instance
+    return { id, username, email };
+  };
+
+  User.prototype.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.hashedPassword.toString())
+  }
+
+  User.login = async function ({ credential, password }) {
+    // credential could be email or username as both are unique
+    // Should allow user to enter either-or to login
+    const { Op } = require('sequelize');
+    const user = await User.scope('loginUser').findOne({
+      where: {
+        [Op.or]: {
+          username: credential,
+          email: credential
+        }
+      }
+    });
+
+    if (user && user.validatePassword(password)) {
+      return await User.scope('currentUser').findByPk(user.id)
+    }
+  }
+
+  User.signup = async function ({ username, email, password }) {
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      username,
+      email,
+      hashedPassword
+    });
+    return await User.scope('currentUser').findByPk(user.id);
+  };
 
   User.associate = function (models) {
     // associations can be defined here
