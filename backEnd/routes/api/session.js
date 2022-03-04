@@ -3,9 +3,23 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
+const { check } = require('express-validator');
+const { handelValidationErrors } = require('../../utils/validation')
 
-// User.login, sets the token cookie
-router.post('/', asyncHandler(async (req, res, next) => {
+const validateLogin = [
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a valid email or username.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a password.'),
+  handelValidationErrors
+];
+
+// User.login, sets token cookie
+router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
   const { credential, password } = req.body;
   // creds either email or username
   const user = await User.login({ credential, password });

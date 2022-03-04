@@ -5,8 +5,8 @@ const { User } = require('../db/models');
 const { secret, expiresIn } = jwtConfig;
 
 
+// sign jwt, create cookie token of safeObj user
 const setTokenCookie = (res, user) => {
-  // Create token
   const token = jwt.sign(
     { data: user.toSafeObject() },
     secret,
@@ -26,7 +26,7 @@ const setTokenCookie = (res, user) => {
   return token;
 };
 
-// pre-middleware and follow auth middleware
+// verify jwt with req cookie token
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
@@ -49,8 +49,7 @@ const restoreUser = (req, res, next) => {
   });
 };
 
-// pre-middleware and follow auth middleware
-// If no current user, return an error
+// runs restoreUser, no user return 401 err
 const requireAuth = [
   restoreUser,
 
