@@ -8,15 +8,15 @@ const sessionRouter = require('./session');
 
 router.use('/users', usersRouter);
 router.use('/session', sessionRouter);
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-})
 
 // Real Routes End
 /////////////////////////////////////////////////////
 // Test Routes Begin
 
 /* 
+router.post('/test', (req, res) => {
+  res.json({ requestBody: req.body });
+})
 
 router.post('/test', function(req, res) {
   res.json({ requestBody: req.body });
