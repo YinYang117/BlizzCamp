@@ -6,19 +6,19 @@ const router = express.Router();
 
 router.post('/', asyncHandler(async (req, res, next) => {
   const { credential, password } = req.body;
-
+  console.log('creds and pass', credential, password)
   const user = await User.login({ credential, password });
-
-  if (!user) { // no user
+  console.log('user from in session api:', user)
+  if (!user) {
     const err = new Error('Login failed');
     err.status = 401;
     err.title = 'Login failed';
     err.errors = ['The provided credentials were invalid.'];
     return next(err);
   }
-  
+
   await setTokenCookie(res, user);
-  
+
   return res.json({ user });
 }));
 
@@ -30,4 +30,4 @@ router.post('/', asyncHandler(async (req, res, next) => {
 
 // }
 
-module.exports = router;
+module.exports = router;  

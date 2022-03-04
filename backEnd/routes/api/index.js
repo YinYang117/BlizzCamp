@@ -6,8 +6,8 @@ const { requireAuth } = require('../../utils/auth.js');
 const usersRouter = require('./users');
 const sessionRouter = require('./session');
 
-router.use('./users', usersRouter);
-router.use('./session', sessionRouter);
+router.use('/users', usersRouter);
+router.use('/session', sessionRouter);
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
 })
