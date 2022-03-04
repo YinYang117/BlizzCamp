@@ -28,4 +28,12 @@ router.delete('/', (req, res) => {
   return res.json({ message: 'successful cookie clear' });
 });
 
+// if user is in req
+router.get('/', restoreUser, (req, res) => {
+  const { user } = req;
+
+  if (user) return res.json({ user: user.toSafeObject() })
+  else return res.json({ })
+});
+
 module.exports = router;
