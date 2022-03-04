@@ -1,2 +1,1 @@
 # BlizzCamp
-# BlizzCamp
