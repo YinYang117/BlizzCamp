@@ -6,10 +6,9 @@ const handelValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
 
   if (!validationErrors.isEmpty()) {
-    console.log('Valication Errors from Utils Here: ', validationErrors)
     const errors = validationErrors
-    console.log('Errors from Utils Here: ', errors)
-    .array()
+    console.log('errors from utils validation:', errors)
+    errors.array()
     .map((error) => `${error.msg}`);
 
     const err = Error('Bad request');
