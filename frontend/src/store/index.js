@@ -1,9 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import sessionReducer from './session';
 
-  //  all other reducers in here combined into one big one
-  //  all reducers in here get invoked for us
+// REDUCER
 const rootReducer = combineReducers({
+  session: sessionReducer,
   });
 
 let enhancer;

@@ -4,10 +4,11 @@ const { check } = require('express-validator');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
-const { handelValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+// VALIDATORS
 const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
@@ -39,7 +40,7 @@ const validateSignup = [
     .withMessage('Password must contain at least 1 number')
     .matches(/^(?=.*[!@#$%^&*])/, 'g')
     .withMessage('Password must contain 1 special character'),
-  handelValidationErrors
+  handleValidationErrors
 ];
 
 // Signup route, needs req.b w/ new user info
@@ -54,8 +55,6 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
 }));
 
 module.exports = router;
-
-
 
 /////////////////////////////////////////////////////
 // TODO: implement a few more validations

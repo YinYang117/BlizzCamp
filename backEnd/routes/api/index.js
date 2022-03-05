@@ -45,7 +45,6 @@ router.get('/restore-user', restoreUser, (req, res) => {
 router.get('/require-auth', requireAuth, (req, res) => {
   return res.json(req.user);
 });
-
 */
 
 module.exports = router;
