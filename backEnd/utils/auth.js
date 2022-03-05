@@ -4,7 +4,6 @@ const { User } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
-
 // sign jwt, create cookie token of safeObj user
 const setTokenCookie = (res, user) => {
   const token = jwt.sign(

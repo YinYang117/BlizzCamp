@@ -38,7 +38,7 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
 // log out, clears token cookie
 router.delete('/', (req, res) => {
   res.clearCookie('token');
-  return res.json({ message: 'successful cookie clear' });
+  return res.json({ message: 'successfully cleared token cookie ' });
 });
 
 // if user in req => makeSafeObj

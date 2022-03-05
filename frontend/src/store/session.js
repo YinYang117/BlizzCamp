@@ -54,11 +54,20 @@ export const signup = ( newUser ) => async (dispatch) => {
     body: JSON.stringify({ username, email, password }),
   });
 
-  // Dispatch with confidence, Error handling fully covered before this step
+  // adds to the store through setUser action
   const data = await res.json();
   dispatch(setUser(data.user));
   return res;
 }
+
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  // remove from store through removeUser action
+  dispatch(removeUser());
+  return response;
+};
 
 // end of actions
 /////////////////////////////////////////
