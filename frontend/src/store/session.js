@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
@@ -23,20 +24,41 @@ const removeUser = () => {
 export const login = ( user ) => async (dispatch) => {
   const { credential, password } = user;
 
-  // post to the user.login
-  const response = await csrfFetch('/api/session', {
+  // post through /api/session to User.login func
+  const res = await csrfFetch('/api/session', {
     method: 'POST',
-    body: JSON.stringify({
-      credential,
-      password,
-    }),
+    body: JSON.stringify({ credential, password }),
   });
 
   // Dispatch with confidence, Error handling fully covered before this step
-  const data = await response.json();
+  const data = await res.json();
   dispatch(setUser(data.user));
-  return response;
+  return res;
 };
+
+// get /api/session => restoreUser => setUser
+export const restoreUser = () => async dispatch => {
+  const res = await csrfFetch('/api/session') 
+  const data = await res.json();
+  // data is { user: { my safe user obj with id, username, email}}
+  dispatch(setUser(data.user))
+  return res
+};
+
+export const signup = ( newUser ) => async (dispatch) => {
+  const { username, email, password } = newUser;
+
+  // post through /api/users to User.signup func
+  const res = await csrfFetch('/api/users', {
+    method: 'POST',
+    body: JSON.stringify({ username, email, password }),
+  });
+
+  // Dispatch with confidence, Error handling fully covered before this step
+  const data = await res.json();
+  dispatch(setUser(data.user));
+  return res;
+}
 
 // end of actions
 /////////////////////////////////////////

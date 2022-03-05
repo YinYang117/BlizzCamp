@@ -42,6 +42,9 @@ const validateSignup = [
     .withMessage('Password must contain 1 special character'),
   handleValidationErrors
 ];
+// Reminder: don't need to handle confirm pass valid
+// because It's setup to compare against pass in the form handler
+// and wont dispatch unless that passes first 
 
 // Signup route, needs req.b w/ new user info
 router.post('/', validateSignup, asyncHandler(async (req, res) => {
@@ -55,27 +58,3 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
 }));
 
 module.exports = router;
-
-/////////////////////////////////////////////////////
-// TODO: implement a few more validations
-
-/* 
-[
-//  Check if email is in use (for uniques)
-  check('email')
-  .custom((email) => {
-    return User.findOne({ where: { email } })
-      .then((user) => {
-        if (user) return Promise.reject('Email already in use, please choose another')
-      })
-  }),
-// Confirm password match if I implement this
-check('confirmPassword')
-    .custom((confirmedPass, { req }) => {
-      if (confirmedPass !== req.body.password) {
-        throw new Error('Confirm Password did not match password')
-      }
-      return true;
-    })
-]
-*/
