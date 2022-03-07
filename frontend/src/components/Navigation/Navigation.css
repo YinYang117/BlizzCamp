@@ -1,1 +1,17 @@
 /* keep */
+
+.nav-container{
+  background-color: #144E99;
+  height: 100px;
+  width: 100vw;
+}
+
+.fa-user-astronaut{
+  width: 30px;
+  height: 30px;
+
+}
+
+.home-link{
+  font-size: 30px;
+}

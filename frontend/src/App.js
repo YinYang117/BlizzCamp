@@ -8,22 +8,22 @@ import Navigation from "./components/Navigation";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Conditional for displaying
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  return (
+  return (isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-        </Switch>
-      )}
+      <Switch>
+        <Route path="/signup">
+          <SignupFormPage />
+        </Route>
+      </Switch>
     </>
-  );
+  ))
 }
 
 export default App;

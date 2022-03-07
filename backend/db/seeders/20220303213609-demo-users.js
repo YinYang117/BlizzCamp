@@ -15,7 +15,7 @@ module.exports = {
     {
       username: 'KeanuKitsune',
       email: 'JohnWick@japaneseFox.com',
-      hashedPassword: bcrypt.hashSync('password2!', 10)
+      hashedPassword: bcrypt.hashSync('!1Aa', 10)
     }
   ], {});
   },

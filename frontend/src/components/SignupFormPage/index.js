@@ -20,11 +20,13 @@ function SignupFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      setErrors([]);
       return dispatch(sessionActions.signup({ email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          // console.log('DATA FROM SIGNUP FORM PAGE:', data)
+          // console.log('DATAERRORS:', data.errors)
+          if (data && data.errors) setErrors(...data.errors);
+          console.log('errors should be array here', errors)
         });
     }
     return setErrors(['Above all else, Confirm Password must match Password exactly']);
@@ -32,9 +34,11 @@ function SignupFormPage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+      {errors && (
+        <ul>
+          {errors.map((error, idx) => <li key={idx}>{error.msg}</li>)}
+        </ul>
+      )}
       <label className='username'>
         Username
         <input type='text' value={username} onChange={e => setUsername(e.target.value)} required />

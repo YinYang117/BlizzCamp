@@ -54,8 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(id);
   };
 
-  User.prototype.toSafeObject = function () { // this cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
+  // this cannot be an arrow function
+  User.prototype.toSafeObject = function () { // returns passed-in User's username, id, email only
+    const { id, username, email } = this;
     return { id, username, email };
   };
 

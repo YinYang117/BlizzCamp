@@ -13,7 +13,8 @@ const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email')
+    .withMessage('Please provide a valid email'),
+  check('email')
     .isLength({ max: 256 })
     .withMessage('Email limit of 256 characters exceeded')
     .isLength({ min: 3 })
@@ -23,7 +24,8 @@ const validateSignup = [
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
-    .withMessage('Please provide a Username at least 4 characters long')
+    .withMessage('Please provide a Username at least 4 characters long'),
+  check('email')
     .isLength({ max: 30 })
     .withMessage('Username has a 30 character limit'),
   check('username')
@@ -42,6 +44,7 @@ const validateSignup = [
     .withMessage('Password must contain 1 special character'),
   handleValidationErrors
 ];
+
 // Reminder: don't need to handle confirm pass valid
 // because It's setup to compare against pass in the form handler
 // and wont dispatch unless that passes first 
