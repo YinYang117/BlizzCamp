@@ -4,9 +4,6 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   // Some attributes, like unique, could be defined here and in migrations
-  // It'd explicit, also redundant
-  // I think allow null is ^, but is important enough to reiterate
-
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
