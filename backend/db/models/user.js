@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [4, 30],
-        // isEmail: false   would like to test this out to see if it could work. Not sure
+        // isEmail: false would like to test this out to see if it could work. Not sure
         isNotEmail(value) {
           if (Validator.isEmail(value)) { throw new Error('Cannot be an email.') }
         }
@@ -93,7 +93,10 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function (models) {
-    // associations can be defined here
+    User.hasMany(models.Spot, { foreignKey: 'userId', onDelete: 'cascade', hooks: true })
+    User.hasMany(models.Image, { foreignKey: 'userId', onDelete: 'cascade', hooks: true })
+    User.hasMany(models.Booking, { foreignKey: 'userId', onDelete: 'cascade', hooks: true })
+    User.hasMany(models.Review, { foreignKey: 'userId', onDelete: 'cascade', hooks: true })
   };
   return User;
 };

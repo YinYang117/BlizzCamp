@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       world: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      address: {
+      location: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
@@ -25,11 +28,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       }
     });
   },

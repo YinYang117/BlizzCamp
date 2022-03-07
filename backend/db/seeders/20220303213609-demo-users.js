@@ -26,7 +26,7 @@ module.exports = {
 
     return queryInterface.bulkDelete('Users', {
       username: { [Op.in]: ['demo-user', 'KeanuKitsune'] }
-      // Delete from Users where the username is in [ ]
+      // Delete from Users where the username is Operator.in: [ ]
     }, {});
   }
 };
