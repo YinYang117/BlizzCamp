@@ -24,10 +24,10 @@ function SignupFormPage() {
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
-          console.log('errors should be array here', errors)
+          console.log('#!#!#!#!#!#!#!#!#!#!#!#!#!#!#1#!#!#1errors should be array here', errors)
         });
     }
-    return setErrors(['Above all else, Confirm Password must match Password exactly']);
+    return setErrors(['Confirm Password must match Password exactly']);
   };
 
   return (
