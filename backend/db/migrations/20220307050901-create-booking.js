@@ -9,15 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       spotId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       startDate: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       endDate: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

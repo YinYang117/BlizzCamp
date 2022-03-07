@@ -9,15 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       spotId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       review: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       rating: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

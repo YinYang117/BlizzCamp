@@ -1,10 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
-    userId: DataTypes.INTEGER,
-    spotId: DataTypes.INTEGER,
-    review: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    spotId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    review: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    rating: {
+      allowNull: false,
+      type: DataTypes.STRING
+    }
   }, {});
   Review.associate = function(models) {
     Review.belongsTo(models.User, { foreignKey: 'userId' })
