@@ -23,19 +23,18 @@ function SignupFormPage() {
       return dispatch(sessionActions.signup({ email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-          console.log('#!#!#!#!#!#!#!#!#!#!#!#!#!#!#1#!#!#1errors should be array here', errors)
+          if (data && (data.errors)) setErrors(data.errors);
+          //.errors here is an array of validation error.msg's
         });
     }
-    return setErrors(['Confirm Password must match Password exactly']);
+    return setErrors(['Password and Confirmed Password must match']);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       {errors && (
         <ul>
-          {console.log('errors in the ul area:', errors)}
-          {errors.map((error, idx) => <li key={idx}>{`${error}`}</li>)}
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
       )}
       <label className='username'>
