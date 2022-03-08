@@ -30,7 +30,7 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div className='profile-button'>
       <button onClick={openMenu}>
       <i className="fa-solid fa-user-astronaut fa-lg"></i>
       </button>
@@ -43,7 +43,7 @@ function ProfileButton({ user }) {
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

@@ -10,13 +10,12 @@ function HomePage() {
 
   const [username, setUsername] = useState('');
 
-  //TODO IMPLEMENT THIS
-  const [viewportWidth, setviewportWidth] = useState('');
 
-
-
+  // putting body into grid 
   return (
-    <div></div>
+    <div className='home-page'>
+
+    </div>
   );
   // let sessionLinks;
   // if (sessionUser) {
@@ -73,7 +72,7 @@ function HomePage() {
     //     Sign Up
     //   </button>
     // </form>
-  );
+  // );
 }
 
 export default HomePage;

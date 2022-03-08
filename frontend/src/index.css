@@ -1,4 +1,17 @@
 /* Site wide styles */
+#root {
+}
+
+.whole-page {
+  display: grid;
+  grid-template-columns: 1fr 800px 1fr;
+  grid-template-rows: 1fr;
+  /* gap: 0px 0px; */
+  grid-template-areas: "left main-body right";
+}
+
+/* grid-area: main-body; */
+
 body {
   margin: 0px;
   background-color: #64A0DC;

@@ -16,17 +16,17 @@ function App() {
   }, [dispatch]);
 
   return (isLoaded && (
-    <>
+    <div className='whole-page'>
       <Navigation isLoaded={isLoaded} />
       <Switch>
-      <Route exact path="/">
+        <Route exact path="/">
           <HomePage />
         </Route>
         <Route path="/signup">
           <SignupFormPage />
         </Route>
       </Switch>
-    </>
+    </div>
   ))
 }
 

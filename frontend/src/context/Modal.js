@@ -12,6 +12,8 @@ export function ModalProvider({ children }) {
     setValue(modalRef.current);
   }, [])
 
+  //Wraping this in an actual div w/ classname
+  //you can see its just under root wrapping everything else
   return (
     <>
       <ModalContext.Provider value={value}>
