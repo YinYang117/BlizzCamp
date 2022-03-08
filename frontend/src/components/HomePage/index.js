@@ -14,7 +14,9 @@ function HomePage() {
   // putting body into grid 
   return (
     <div className='home-page'>
-
+      <h1 id='home-page-h1' >Find the ultimate getaway</h1>
+      <h2>New locations across the galaxy</h2>
+      <h2>Just waiting for you to travel there</h2>
     </div>
   );
   // let sessionLinks;

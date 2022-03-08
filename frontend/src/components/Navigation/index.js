@@ -24,8 +24,10 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='nav-container'>
-      <NavLink className='home-link' exact to="/">BlizzCamp</NavLink>
-      {isLoaded && sessionLinks}
+      <div>
+        <NavLink className='home-link' exact to="/">BlizzCamp</NavLink>
+        {isLoaded && sessionLinks}
+      </div>
     </div>
   );
 }
