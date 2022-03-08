@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import HomePageIntro from './HomePageIntro.js'
+import SearchLoggedOut from './SearchLoggedOut'
 import './HomePage.css';
 
 function HomePage() {
@@ -14,9 +16,8 @@ function HomePage() {
   // putting body into grid 
   return (
     <div className='home-page'>
-      <h1 id='home-page-h1' >Find the ultimate getaway</h1>
-      <h2>New locations across the galaxy</h2>
-      <h2>Just waiting for you to travel there</h2>
+      {!sessionUser && <HomePageIntro />}
+      {!sessionUser && <SearchLoggedOut />}
     </div>
   );
   // let sessionLinks;
