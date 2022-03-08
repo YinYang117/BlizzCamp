@@ -1,21 +1,23 @@
 import React from "react";
 
-function SearchLoggedOut() {
+function SearchLoggedOut() 
+  //TODO change padding on white-background cs. fix cropping. remove search border.
+{
   return (
     <>
       <div className='search-container-logged-in'>
         <div className='world-or-location-query'>
           <p>Where To?</p>
           <div className='white-background where-to'>
-            <i className="fa-solid fa-magnifying-glass-location"></i>
-            <input id="search-input" type="text" placeholder="World or Location..."></input>
+            <i className="fa-solid fa-magnifying-glass-location" />
+            <input className="location-search-input" type="text" placeholder="World or Location..."></input>
           </div>
         </div>
         <div className='date-query'>
           <p>Dates</p>
           <div className='white-background search-dates'>
             <i class="fa-solid fa-calendar" />
-            <input className='search-input' type="text" placeholder="World or Location..."></input>
+            <input className='date-search-input' type="text" placeholder="World or Location..."></input>
           </div>
         </div>
         <div className='search-button-container'>
