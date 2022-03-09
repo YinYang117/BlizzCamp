@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Redirect } from 'react-router-dom';
 import HomePageIntro from './HomePageIntro.js'
 import SearchLoggedOut from './SearchLoggedOut'
+import SpotCard from './SpotCard'
 import './HomePage.css';
 
 function HomePage({ isLoaded }) {
@@ -31,7 +32,9 @@ function HomePage({ isLoaded }) {
         className='splash-art'
       />}
       <div className='home-spots-container'>
-        { }
+        {firstTenSpots.forEach(spot => 
+        <SpotCard spot={spot} />
+        )}
       </div>
     </div>
   );
