@@ -22,7 +22,7 @@ function App() {
         <div className='main-body'>
           <Switch>
             <Route exact path="/">
-              <HomePage isLoaded={isLoaded} />
+              <HomePage />
             </Route>
             <Route path="/signup">
               <SignupFormPage />

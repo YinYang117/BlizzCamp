@@ -1,27 +1,24 @@
 import React, { useState } from "react";
-import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import { Redirect } from 'react-router-dom';
 import HomePageIntro from './HomePageIntro.js'
 import SearchLoggedOut from './SearchLoggedOut'
 import SpotCard from './SpotCard'
 import './HomePage.css';
 
-function HomePage({ isLoaded }) {
+function HomePage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
 
   const [username, setUsername] = useState('');
   // TODO setup spots dispatch stuff
   const [firstTenSpots, setFirstTenSpots] = useState([]);
-  // Conditional for displaying
-  useEffect(() => {
-    dispatch( ).then(() => firstTenSpots);
-    //store action to get spots
-  }, [dispatch]);
 
-  // putting body into grid 
+  // useEffect(() => {
+  //   dispatch( ).then(() => firstTenSpots);
+  //   //store action to get spots
+  // }, [dispatch]);
+
   return (
     <div className='home-page'>
       {!sessionUser && <HomePageIntro />}
