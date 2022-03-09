@@ -1,81 +1,40 @@
 import React, { useState } from "react";
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
 import { Redirect } from 'react-router-dom';
 import HomePageIntro from './HomePageIntro.js'
 import SearchLoggedOut from './SearchLoggedOut'
 import './HomePage.css';
 
-function HomePage() {
+function HomePage({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
 
   const [username, setUsername] = useState('');
-
+  // TODO setup spots dispatch stuff
+  const [firstTenSpots, setFirstTenSpots] = useState([]);
+  // Conditional for displaying
+  useEffect(() => {
+    dispatch( ).then(() => firstTenSpots);
+    //store action to get spots
+  }, [dispatch]);
 
   // putting body into grid 
   return (
     <div className='home-page'>
       {!sessionUser && <HomePageIntro />}
       {!sessionUser && <SearchLoggedOut />}
+      {!sessionUser && <img
+        src='https://www.nme.com/wp-content/uploads/2020/09/Xbox-Game-Pass.jpg'
+        alt='home splash art before user login'
+        className='splash-art'
+      />}
+      <div className='home-spots-container'>
+        { }
+      </div>
     </div>
   );
-  // let sessionLinks;
-  // if (sessionUser) {
-  //   sessionLinks = (
-  //     <ProfileButton user={sessionUser} />
-  //   );
-  // } else {
-  //   sessionLinks = (
-  //     <>
-  //       <LoginFormModal />
-  //       <NavLink to="/signup">Sign Up</NavLink>
-  //     </>
-  //   );
-  // }
-
-  // return (
-  //   <div className='nav-container'>
-  //     <NavLink className='home-link' exact to="/">BlizzCamp</NavLink>
-  //     {isLoaded && sessionLinks}
-  //   </div>
-  // );
-
-
-
-
-
-
-
-    // example code 
-    // <form onSubmit={handleSubmit}>
-    //   {errors && (
-    //     <ul>
-    //       {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-    //     </ul>
-    //   )}
-    //   <label className='username'>
-    //     Username
-    //     <input type='text' value={username} onChange={e => setUsername(e.target.value)} required />
-    //   </label>
-    //   <label className='email'>
-    //     Email
-    //     <input type='text' value={email} onChange={e => setEmail(e.target.value)} required />
-    //     {/* or type='email */}
-    //   </label>
-    //   <label>
-    //     Password
-    //     <input type='password' value={password} onChange={e => setPassword(e.target.value)} required />
-    //   </label>
-    //   <label>
-    //     Confirm Password
-    //     <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-    //   </label>
-    //   <button type='submit'>
-    //     Sign Up
-    //   </button>
-    // </form>
-  // );
 }
 
 export default HomePage;
