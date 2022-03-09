@@ -26,9 +26,46 @@ const validateSpot = [
   handleValidationErrors
 ];
 
-router.get('/', asyncHandler(async (req, res) => {
-  return res.json({ "spotId": "spot id value placeholder"});
+router.delete('/:spotId(\\d+)', asyncHandler(async (req, res) => {
+  const spotId = parseInt(req.params.spotId, 10);
+  const doomedSpot = await Spot.findByPk(spotId);
+  await doomedSpot.destroy();
+  res.json({})
+  // ^ play with this final statement. res.json blank? or return
 }));
+
+router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
+  const { world, location, description, price } = req.body;
+  const spotId = parseInt(req.params.spotId, 10);
+  const spot = await Spot.findByPk(spotId);
+  spot.update({ world, location, description, price })
+  
+  res.json({})
+  // ^ play with this final statement. res.json blank? or return
+}));
+
+router.get('/', asyncHandler(async (req, res) => {
+  return await Spot.allSpots();
+}));
+
+router.get('/first', asyncHandler(async (req, res) => {
+  return await Spot.getFirstTenSpots();
+}));
+
+router.get('/recent', asyncHandler(async (req, res) => {
+  return await Spot.getLastTenSpots();
+}));
+
+// router.get('/popular', asyncHandler(async (req, res) => {
+//   TODO implement logic to find most popular sites
+// }));
+
+router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.useId, 10);
+  const spots = await Spot.getSpotsByUserId(id);
+  console.log('api route get userId spots:', spots)
+  return res.json({ spots })
+})); 
 
 router.post('/', validateSpot, asyncHandler(async (req, res) => {
   const { world, location, description, price } = req.body;

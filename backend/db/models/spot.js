@@ -33,6 +33,23 @@ module.exports = (sequelize, DataTypes) => {
     return await newSpot;
   };
 
+  Spot.allSpots = async function ({}) {
+    return await Spot.findAll()
+  }
+
+  Spot.getSpotsByUserId = async function ({ userId }) {
+    console.log('userId should be Int here i think. In Spot Model:', userId)
+    return await Spot.findAll({ where: { userId }})
+  }
+
+  Spot.getFirstTenSpots = async function () {
+    return await Spot.findAll({ order:acending, limit: 10 })
+  }
+  
+  Spot.getLastTenSpots = async function () {
+    return await Spot.findAll({ order: decending, limit: 10 })
+  }
+
   Spot.associate = function (models) {
     Spot.belongsTo(models.User, { foreignKey: 'userId' })
     Spot.hasMany(models.Image, { foreignKey: 'spotId', onDelete: 'cascade', hooks: true })
