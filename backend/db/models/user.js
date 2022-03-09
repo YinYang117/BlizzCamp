@@ -32,23 +32,23 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   },
-    {
-      defaultScope: {
-        attributes: {
-          exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
-        }
-      },
-      scopes: {
-        currentUser: {
-          attributes: { exclude: ['hashedPassword'] }
-          // returns a user obj without the hashedpass making it to the frontend
-        },
-        loginUser: {
-          attributes: {}
-          // sets aside emtpy {} to fill in with our login credentials
-        }
+  {
+    defaultScope: {
+      attributes: {
+        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
       }
-    });
+    },
+    scopes: {
+      currentUser: {
+        attributes: { exclude: ['hashedPassword'] }
+        // returns a user obj without the hashedpass making it to the frontend
+      },
+      loginUser: {
+        attributes: {}
+        // sets aside emtpy {} to fill in with our login credentials
+      }
+    }
+  });
 
   User.getCurrentUserById = async function (id) {
     return await User.scope('currentUser').findByPk(id);
