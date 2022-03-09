@@ -1,10 +1,10 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot } = require('../../db/models');
 const router = express.Router();
-
 
 // VALIDATORS
 const validateSpot = [
@@ -27,14 +27,14 @@ const validateSpot = [
 ];
 
 router.get('/', asyncHandler(async (req, res) => {
-  return res.json({ user });
+  return res.json({ "spotId": "spot id value placeholder"});
 }));
 
 router.post('/', validateSpot, asyncHandler(async (req, res) => {
   const { world, location, description, price } = req.body;
-  const spot = await Spot.create({ email, username, password });
+  const spot = await Spot.create({ world, location, description, price });
 
-  return res.json({  });
+  return res.json({ spot });
 }));
 
 module.exports = router;
