@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Spot.getFirstTenSpots = async function () {
-    return await Spot.findAll({ order:acending, limit: 10 })
+    return await Spot.findAll({ order: 'ascending', limit: 10 })
   }
   
   Spot.getLastTenSpots = async function () {
-    return await Spot.findAll({ order: decending, limit: 10 })
+    return await Spot.findAll({ order: 'descending', limit: 10 })
   }
 
   Spot.associate = function (models) {

@@ -14,10 +14,10 @@ function HomePage() {
   // TODO setup spots dispatch stuff
   const [firstTenSpots, setFirstTenSpots] = useState([]);
 
-  // useEffect(() => {
-  //   dispatch( ).then(() => firstTenSpots);
-  //   //store action to get spots
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch( thunk );
+    //store action to get spots
+  }, [dispatch]);
 
   return (
     <div className='home-page'>
@@ -29,8 +29,8 @@ function HomePage() {
         className='splash-art'
       />}
       <div className='home-spots-container'>
-        {firstTenSpots.forEach(spot => 
-        <SpotCard spot={spot} />
+        {firstTenSpots.map(spot => 
+          <SpotCard spot={spot} />
         )}
       </div>
     </div>

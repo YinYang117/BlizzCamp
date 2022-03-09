@@ -69,3 +69,12 @@
   border-radius: 40px;
   filter: drop-shadow(10px 10px 10px #111180);
 }
+
+.spot-card-container {
+  display: flex;
+  flex-flow: column;
+}
+
+.spot-card-title-container {
+  
+}

@@ -1,8 +1,7 @@
 import React from "react";
 
-function SearchLoggedOut() 
-  //TODO change padding on white-background cs. fix cropping. remove search border.
-{
+function SearchLoggedOut() {
+  
   return (
     <>
       <div className='search-container-logged-in'>
