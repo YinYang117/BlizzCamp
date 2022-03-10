@@ -13,16 +13,18 @@ function HomePage({ isLoaded }) {
   const spots = useSelector(state => state.spots);
 
 
-  const [allSpots, setSpots] = useState(); // I can use this if I need the slice of state
+  const [allSpots, setSpots] = useState([]); // I can use this if I need the slice of state
 
   useEffect(() => {
-    dispatch(spotActions.loadSpots());
+    dispatch(spotActions.loadSpots())
+    .then(setSpots(spots))
+    .then(console.log('Spots from in the homepage index useEffect',spots))
     //store action to get spots
-  }, [dispatch, spots]);
+  }, [dispatch]);
   
-  setSpots(spots)
 
-  console.log('!###! spots in homepage index', spots)
+
+  console.log('!###! allspots in homepage index', allSpots)
 
   return (
     <>
