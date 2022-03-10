@@ -46,7 +46,6 @@ router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 
 router.get('/', asyncHandler(async (req, res) => {
   const spots = await Spot.allSpots();
-  console.log('api route get spots:', spots)
   return res.json({ spots })
 }));
 

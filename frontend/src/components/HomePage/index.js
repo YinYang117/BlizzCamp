@@ -10,7 +10,7 @@ import './HomePage.css';
 function HomePage({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const spotsArr = useSelector(state => state.spots);
+  const spotsArr = useSelector(state => state.spots.spotsArr);
 
   useEffect(() => {
     console.log('spot actions homepage index', spotActions)
@@ -34,9 +34,6 @@ function HomePage({ isLoaded }) {
             {spotsArr.map(spot =>
               <SpotCard key={spot.id} spot={spot} />
             )}
-          </div>
-          <div>
-            {`${spotsArr}`}
           </div>
       </div>}
     </>

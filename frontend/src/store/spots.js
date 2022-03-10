@@ -7,10 +7,10 @@ const LOAD_SPOTS = 'spots/loadSpots';
 /////////////////////////////////////////
 // actions 
 
-const setSpots = (spotsArr) => {
+const setSpots = (spots) => {
   return {
     type: LOAD_SPOTS,
-    payload: spotsArr,
+    payload: spots,
   };
 };
 
@@ -24,7 +24,7 @@ export const loadSpots = () => async (dispatch) => {
   // ]}
   console.log('!#!#data from spot store loading spots', data)
 
-  dispatch(setSpots(data.spotsArr))
+  dispatch(setSpots(data.spots))
 
   return data
 }
