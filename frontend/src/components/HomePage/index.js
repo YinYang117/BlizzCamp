@@ -13,7 +13,6 @@ function HomePage({ isLoaded }) {
   const spotsArr = useSelector(state => state.spots.spotsArr);
 
   useEffect(() => {
-    console.log('spot actions homepage index', spotActions)
     dispatch(spotActions.loadSpots())
 
     //store action to get spots
