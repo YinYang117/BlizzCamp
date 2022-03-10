@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import * as spotActions from '../../store/spot'
+import * as spotActions from '../../store/spots'
 import HomePageIntro from './HomePageIntro.js'
 import SearchLoggedOut from './SearchLoggedOut'
 import SpotCard from './SpotCard'
@@ -10,24 +10,19 @@ import './HomePage.css';
 function HomePage({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const spotObj = useSelector(state => state.spot);
-
-
-  console.log('isLoaded: in home page:', isLoaded)
+  const spotsArr = useSelector(state => state.spots);
 
   useEffect(() => {
+    console.log('spot actions homepage index', spotActions)
     dispatch(spotActions.loadSpots())
 
     //store action to get spots
   }, [dispatch]);
-  
-
-
-  // console.log('!###! allspots in homepage index', allSpots)
 
   return (
     <>
-      <div className='home-page'>
+
+      {spotsArr && <div className='home-page'>
         {!sessionUser && <HomePageIntro />}
         {!sessionUser && <SearchLoggedOut />}
         {!sessionUser && <img
@@ -36,15 +31,14 @@ function HomePage({ isLoaded }) {
           className='splash-art'
         />}
           <div className='home-spots-container'>
-            {spotObj.spots.map(spot =>
+            {spotsArr.map(spot =>
               <SpotCard key={spot.id} spot={spot} />
-              
             )}
           </div>
           <div>
-            {`${spotObj}`}
+            {`${spotsArr}`}
           </div>
-      </div>
+      </div>}
     </>
   );
 }

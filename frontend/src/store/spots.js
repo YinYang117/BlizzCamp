@@ -1,16 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { csrfFetch } from './csrf';
 
-const LOAD_SPOTS = 'spot/loadSpots';
+const LOAD_SPOTS = 'spots/loadSpots';
 
 // link actions to cases
 /////////////////////////////////////////
 // actions 
 
-const setSpots = (spots) => {
+const setSpots = (spotsArr) => {
   return {
     type: LOAD_SPOTS,
-    payload: spots,
+    payload: spotsArr,
   };
 };
 
@@ -24,7 +24,7 @@ export const loadSpots = () => async (dispatch) => {
   // ]}
   console.log('!#!#data from spot store loading spots', data)
 
-  dispatch(setSpots(data.spots))
+  dispatch(setSpots(data.spotsArr))
 
   return data
 }
@@ -33,19 +33,19 @@ export const loadSpots = () => async (dispatch) => {
 /////////////////////////////////////////
 // reducer
 
-const initialState = { spots: null };
+const initialState = { spotsArr: null };
 
-const spotReducer = (state = initialState, action) => {
+const spotsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     // cases
     case LOAD_SPOTS:
       newState = Object.assign({}, state);
-      newState.spots = action.payload;
+      newState.spotsArr = action.payload;
       return newState;
     default:
       return state;
   }
 };
 
-export default spotReducer;
+export default spotsReducer;

@@ -46,25 +46,13 @@ router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 
 router.get('/', asyncHandler(async (req, res) => {
   const spots = await Spot.allSpots();
+  console.log('api route get spots:', spots)
   return res.json({ spots })
 }));
-
-// router.get('/first', asyncHandler(async (req, res) => {
-//   return await Spot.getFirstTenSpots();
-// }));
-
-// router.get('/recent', asyncHandler(async (req, res) => {
-//   return await Spot.getLastTenSpots();
-// }));
-
-// router.get('/popular', asyncHandler(async (req, res) => {
-//   TODO implement logic to find most popular sites
-// }));
 
 router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
   const id = parseInt(req.params.useId, 10);
   const spots = await Spot.getSpotsByUserId(id);
-  console.log('api route get userId spots:', spots)
   return res.json({ spots })
 })); 
 
