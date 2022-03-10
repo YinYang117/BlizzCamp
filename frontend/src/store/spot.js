@@ -14,13 +14,12 @@ const setSpots = (spots) => {
   };
 };
 
-const loadSpots = () => async (dispatch) => {
-  const res = await csrfFetch('/api/spot')
+export const loadSpots = () => async (dispatch) => {
+  const res = await csrfFetch('/api/spots')
   const data = await res.json();
   // data normalized should look like: { spotId: { spot obj },
   //                                     spotId2: {spot 2 obj}}
   console.log('!#!#data from spot store loading spots', data)
-  console.log('!#!#res from spot store loading spots', res)
 
   dispatch(setSpots(data.spots))
 

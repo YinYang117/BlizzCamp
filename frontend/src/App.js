@@ -21,7 +21,7 @@ function App() {
       <div className='whole-page-container'>
         <div className='main-body'>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/" isLoaded={isLoaded} >
               <HomePage />
             </Route>
             <Route path="/signup">

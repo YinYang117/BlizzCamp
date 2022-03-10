@@ -15,7 +15,7 @@ function SearchLoggedOut() {
         <div className='date-query'>
           <p>Dates</p>
           <div className='white-background search-dates'>
-            <i class="fa-solid fa-calendar" />
+            <i className="fa-solid fa-calendar" />
             <input className='date-search-input' type="text" placeholder="World or Location..."></input>
           </div>
         </div>
