@@ -10,25 +10,24 @@ import './HomePage.css';
 function HomePage({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const spots = useSelector(state => state.spots);
+  const spotObj = useSelector(state => state.spot);
 
 
-  const [allSpots, setSpots] = useState([]); // I can use this if I need the slice of state
+  console.log('isLoaded: in home page:', isLoaded)
 
   useEffect(() => {
     dispatch(spotActions.loadSpots())
-    .then(setSpots(spots))
-    .then(console.log('Spots from in the homepage index useEffect',spots))
+
     //store action to get spots
   }, [dispatch]);
   
 
 
-  console.log('!###! allspots in homepage index', allSpots)
+  // console.log('!###! allspots in homepage index', allSpots)
 
   return (
     <>
-      {isLoaded && <div className='home-page'>
+      <div className='home-page'>
         {!sessionUser && <HomePageIntro />}
         {!sessionUser && <SearchLoggedOut />}
         {!sessionUser && <img
@@ -36,13 +35,16 @@ function HomePage({ isLoaded }) {
           alt='home splash art before user login'
           className='splash-art'
         />}
-        {allSpots &&
           <div className='home-spots-container'>
-            {allSpots.map(spot =>
-              <SpotCard spot={spot} />
+            {spotObj.spots.map(spot =>
+              <SpotCard key={spot.id} spot={spot} />
+              
             )}
-          </div>}
-      </div>} 
+          </div>
+          <div>
+            {`${spotObj}`}
+          </div>
+      </div>
     </>
   );
 }
