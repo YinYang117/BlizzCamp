@@ -42,13 +42,15 @@ module.exports = (sequelize, DataTypes) => {
     return await Spot.findAll({ where: { userId }})
   }
 
-  Spot.getFirstTenSpots = async function () {
-    return await Spot.findAll({ order: 'ascending', limit: 10 })
-  }
-  
-  Spot.getLastTenSpots = async function () {
-    return await Spot.findAll({ order: 'descending', limit: 10 })
-  }
+  // Spot.getFirstTenSpots = async function () {
+  //   return await Spot.findAll({ order: 'ascending', limit: 10 })
+  // }
+
+  // These might not be as useful as I initially thought. in this code level / piece at least.
+
+  // Spot.getLastTenSpots = async function () {
+  //   return await Spot.findAll({ order: 'descending', limit: 10 })
+  // }
 
   Spot.associate = function (models) {
     Spot.belongsTo(models.User, { foreignKey: 'userId' })

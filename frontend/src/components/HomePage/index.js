@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
+import * as spotActions from '../../store/spot'
 import HomePageIntro from './HomePageIntro.js'
 import SearchLoggedOut from './SearchLoggedOut'
 import SpotCard from './SpotCard'
@@ -9,13 +10,12 @@ import './HomePage.css';
 function HomePage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
+  const spots = useSelector(state => state.spots);
 
-  const [username, setUsername] = useState('');
-  // TODO setup spots dispatch stuff
-  const [firstTenSpots, setFirstTenSpots] = useState([]);
+  // const [spots, setSpots] = useState(); // I can use this if I need the slice of state
 
   useEffect(() => {
-    dispatch( thunk );
+    dispatch(spotActions.loadSpots());
     //store action to get spots
   }, [dispatch]);
 
@@ -29,7 +29,7 @@ function HomePage() {
         className='splash-art'
       />}
       <div className='home-spots-container'>
-        {firstTenSpots.map(spot => 
+        {spots.map(spot => 
           <SpotCard spot={spot} />
         )}
       </div>

@@ -45,16 +45,17 @@ router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 router.get('/', asyncHandler(async (req, res) => {
-  return await Spot.allSpots();
+  const spots = await Spot.allSpots();
+  return res.json({ spots })
 }));
 
-router.get('/first', asyncHandler(async (req, res) => {
-  return await Spot.getFirstTenSpots();
-}));
+// router.get('/first', asyncHandler(async (req, res) => {
+//   return await Spot.getFirstTenSpots();
+// }));
 
-router.get('/recent', asyncHandler(async (req, res) => {
-  return await Spot.getLastTenSpots();
-}));
+// router.get('/recent', asyncHandler(async (req, res) => {
+//   return await Spot.getLastTenSpots();
+// }));
 
 // router.get('/popular', asyncHandler(async (req, res) => {
 //   TODO implement logic to find most popular sites
@@ -67,7 +68,7 @@ router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
   return res.json({ spots })
 })); 
 
-router.post('/', validateSpot, asyncHandler(async (req, res) => {
+router.post('/new', validateSpot, asyncHandler(async (req, res) => {
   const { world, location, description, price } = req.body;
   const spot = await Spot.create({ world, location, description, price });
 
