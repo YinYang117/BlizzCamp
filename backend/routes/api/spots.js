@@ -60,8 +60,8 @@ router.get('/:spotId', asyncHandler(async (req, res) => {
 // })); 
 
 router.post('/new', validateSpot, asyncHandler(async (req, res) => {
-  const { world, location, mainImage, mainImageAlt, description, price } = req.body;
-  const spot = await Spot.create({ world, location,  mainImage, mainImageAlt, description, price });
+  const { userId, world, location, mainImage, mainImageAlt, description, price } = req.body;
+  const spot = await Spot.create({ userId, world, location,  mainImage, mainImageAlt, description, price });
   return res.json(spot);
 }));
 

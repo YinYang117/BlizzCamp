@@ -34,13 +34,11 @@ module.exports = (sequelize, DataTypes) => {
   // .create is a sequelize method for model classes that combines build and save
   Spot.newSpot = async function ({ world, location, description, price }) {
     const newSpot = await Spot.create({
-      world, location, mainImage, description, price
+      userId, world, location, mainImage, mainImageAlt, description, price
     });
     console.log('New spot from Spot model', newSpot)
     return await newSpot;
   };
-
-  
 
   Spot.allSpots = async function () {
     return await Spot.findAll()

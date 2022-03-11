@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import * as spotActions from '../../store/spots'
+import * as sessionActions from "../../store/session"
 import './NewSpotPage.css';
 
 function NewSpotPage() {
@@ -17,18 +18,23 @@ function NewSpotPage() {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
 
+  const redirectHome = () => history.push('/')
+  // if user stops existing in state.session => Go home
+  if (!sessionUser) redirectHome();
+
   useEffect(() => {
-    dispatch(spotActions.loadSpots())
     //store action to get spots
   }, [dispatch]);
 
-  const redirectHome = () => {
-    history.push('/')
-  }
-
   const submitSpot = () => {
-    const newSpotData = { world, location, mainImage, mainImageAlt, description, price };
+    const userId = parseInt(sessionUser.id)
+    const newSpotData = { userId, world, location, mainImage, mainImageAlt, description, price };
+    console.log('id from new spot', userId)
     dispatch(spotActions.newSpot(newSpotData))
+    redirectHome();
+    // TODO redirect to the spot details page newly created
+    // make new spot created return the results as json
+    // so i can get the id...
   };
 
   return (
@@ -45,10 +51,10 @@ function NewSpotPage() {
         <input onChange={e => setWorld(e.target.value)} type="text" placeholder='world' value={world} />
         <input onChange={e => setLocation(e.target.value)} type="text" placeholder='location' value={location} />
         <input onChange={e => setMainImage(e.target.value)} type="text" placeholder='mainImage url' value={mainImage} />
-        <input onChange={e => setMainImageAlt(e.target.value)} type="text"placeholder='mainImage alt desc' value={mainImageAlt} />
+        <input onChange={e => setMainImageAlt(e.target.value)} type="text" placeholder='mainImage alt desc' value={mainImageAlt} />
         <input onChange={e => setDescription(e.target.value)} type="text" placeholder=' spot description' value={description} />
         <input onChange={e => setPrice(e.target.value)} type="text" placeholder='price' value={price} />
-        <button id="spot-edit-submit" type='submit' >Submit Edits</button>
+        <button id="spot-edit-submit" type='submit' >Submit New Spot</button>
       </form>
     </>
   );

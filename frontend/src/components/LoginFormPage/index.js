@@ -11,7 +11,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-  // once user exists in state.session. => Go home
+  // once user exists in state.session => Go home
   if (sessionUser) return (<Redirect to='/' />);
 
   // form submit => sessAct.login and err chk

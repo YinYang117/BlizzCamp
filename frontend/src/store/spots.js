@@ -65,10 +65,10 @@ export const editSpot = (editedSpot) => async (dispatch) => {
 }
 
 export const newSpot = (newSpot) => async (dispatch) => {
-  const { world, location, mainImage, mainImageAlt, description, price } = newSpot
+  const { userId, world, location, mainImage, mainImageAlt, description, price } = newSpot
   const res = await csrfFetch('/api/spots/new', {
       method: 'POST',
-      body: JSON.stringify({ world, location, mainImage, mainImageAlt, description, price }),
+      body: JSON.stringify({ userId, world, location, mainImage, mainImageAlt, description, price }),
     })
   
   const data = await res.json();
