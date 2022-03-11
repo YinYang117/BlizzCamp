@@ -14,6 +14,7 @@ function SpotDetailsPage() {
 
   const spot = useSelector(state => state.spots[id]);
 
+
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
   const [mainImage, setMainImage] = useState(spot?.mainImage);
@@ -33,7 +34,7 @@ function SpotDetailsPage() {
   }
 
   const submitChanges = () => {
-    const newSpotData = spot
+    const newSpotData = spot;
     if (world) newSpotData.world = world
     if (location) newSpotData.location = location
     if (mainImage) newSpotData.mainImage = mainImage
@@ -41,6 +42,7 @@ function SpotDetailsPage() {
     if (description) newSpotData.description = description
     if (price) newSpotData.price = price
     dispatch(spotActions.editSpot(newSpotData))
+    dispatch(spotActions.loadSpot(id))
   };
 
   // TODO what does Name='' do in my inputs? == to className
@@ -66,14 +68,14 @@ function SpotDetailsPage() {
             submitChanges();
           }}>
             <input onChange={e => setWorld(e.target.value)} type="text" name="spot-world" placeholder={spot?.world} id="spot-world-input" value={world} />
-            <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder="location" id="spot-location-input" value={spot?.location} />
-            <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder="mainImage" id="spot-mainImage-input" value={spot?.mainImage} />
-            <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder="mainImageAlt" id="spot-mainImageAlt-input" value={spot?.mainImageAlt} />
-            <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder="description" id="spot-description-input" value={spot?.description} />
-            <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder="price" id="spot-price-input" value={spot?.price} />
+            <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder={spot?.location} id="spot-location-input" value={location} />
+            <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder={spot?.mainImage} id="spot-mainImage-input" value={mainImage} />
+            <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder={spot?.mainImageAlt} id="spot-mainImageAlt-input" value={mainImageAlt} />
+            <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
+            <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
             <button id="spot-edit-submit" type='submit' >Submit Edits</button>
           </form>
-        <button id="spot-delete" >Delete</button>
+        <button id="spot-delete">Delete</button>
         <button onClick={redirectHome}>Back to Home Page</button>
       </div>}
     </>
