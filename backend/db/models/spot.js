@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    mainImage: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    mainImageAlt: {
+      type: DataTypes.STRING
+    },
     description: {
       type: DataTypes.STRING
     },
@@ -27,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   // .create is a sequelize method for model classes that combines build and save
   Spot.newSpot = async function ({ world, location, description, price }) {
     const newSpot = await Spot.create({
-      world, location, description, price
+      world, location, mainImage, description, price
     });
     console.log('New spot from Spot model', newSpot)
     return await newSpot;
@@ -41,16 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     console.log('userId should be Int here i think. In Spot Model:', userId)
     return await Spot.findAll({ where: { userId }})
   }
-
-  // Spot.getFirstTenSpots = async function () {
-  //   return await Spot.findAll({ order: 'ascending', limit: 10 })
-  // }
-
-  // These might not be as useful as I initially thought. in this code level / piece at least.
-
-  // Spot.getLastTenSpots = async function () {
-  //   return await Spot.findAll({ order: 'descending', limit: 10 })
-  // }
 
   Spot.associate = function (models) {
     Spot.belongsTo(models.User, { foreignKey: 'userId' })

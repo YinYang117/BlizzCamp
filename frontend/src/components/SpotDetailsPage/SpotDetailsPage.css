@@ -1,0 +1,4 @@
+.spot-details-page {
+  display: flex;
+  flex-flow: column;
+}

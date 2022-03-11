@@ -20,6 +20,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      mainImage: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      mainImageAlt: {
+        type: Sequelize.STRING
+      },
       description: {
         type: Sequelize.STRING
       },

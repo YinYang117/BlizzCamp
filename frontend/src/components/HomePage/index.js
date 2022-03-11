@@ -19,7 +19,7 @@ function HomePage({ isLoaded }) {
 
   return (
     <>
-      <div className='home-page'>
+      {spots && <div className='home-page'>
         {!sessionUser && <HomePageIntro />}
         {!sessionUser && <SearchLoggedOut />}
         {!sessionUser && <img
@@ -27,12 +27,12 @@ function HomePage({ isLoaded }) {
           alt='home splash art before user login'
           className='splash-art'
         />}
-        && <div className='home-spots-container'>
+        <div className='home-spots-container'>
           {spots.map(spot =>
             <SpotCard key={spot.id} spot={spot} />
           )}
         </div>
-      </div>
+      </div>}
     </>
   );
 }

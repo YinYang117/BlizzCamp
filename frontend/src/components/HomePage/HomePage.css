@@ -64,7 +64,7 @@
 
 .splash-art {
   max-width: 1150px;
-  width: auto;
+  height: auto;
   margin: 20px;
   border-radius: 40px;
   filter: drop-shadow(10px 10px 10px #111180);
@@ -75,3 +75,9 @@
   flex-flow: column;
 }
 
+.spot-card-image {
+  max-width: 1000px;
+  height: auto;
+  border-radius: 40px;
+  filter: drop-shadow(10px 10px 10px #111180);
+}
