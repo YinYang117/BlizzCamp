@@ -35,10 +35,10 @@ router.delete('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
-  const { world, location, description, price } = req.body;
+  const { world, location, mainImage, mainImageAlt, description, price } = req.body;
   const spotId = parseInt(req.params.spotId, 10);
   const spot = await Spot.findByPk(spotId);
-  spot.update({ world, location, description, price })
+  spot.update({ world, location, mainImage, mainImageAlt, description, price })
   
   res.json({})
   // ^ play with this final statement. res.json blank? or return
@@ -51,11 +51,11 @@ router.get('/:spotId', asyncHandler(async (req, res) => {
   return res.json(spot)
 }))
 
-router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
-  const id = parseInt(req.params.useId, 10);
-  const spots = await Spot.getSpotsByUserId(id);
-  return res.json({ spots })
-})); 
+// router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
+//   const id = parseInt(req.params.useId, 10);
+//   const spots = await Spot.getSpotsByUserId(id);
+//   return res.json({ spots })
+// })); 
 
 router.post('/new', validateSpot, asyncHandler(async (req, res) => {
   const { world, location, description, price } = req.body;

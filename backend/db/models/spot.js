@@ -40,6 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     return await newSpot;
   };
 
+  
+
   Spot.allSpots = async function () {
     return await Spot.findAll()
   }

@@ -16,13 +16,13 @@ function SpotCard({ spot }) {
         alt={spot.mainImageAlt}
         onClick={handleClick}
       />
-      <div className='spot-card-title-icon-container'>
+      <div className='spot-card-title-container'>
         <div className='spot-card-title-container'>
           <h3 className='spot-world'>{spot.world}</h3>
-          <h4 className='spot-world'>{spot.location}</h4>
+          <h4 className='spot-location'>{spot.location}</h4>
+        </div>
         <div className='spot-price'>Price: {spot.price}</div>
         <button onClick={handleClick}>Spot Details</button>
-      </div>
       </div>
     </div>
   );

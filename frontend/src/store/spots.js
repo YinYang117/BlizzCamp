@@ -22,6 +22,9 @@ const setSpot = (spot) => {
   };
 };
 
+// const editSpot = (newSpotData) => {
+// }
+
 // end of action creators
 /////////////////////////////////////////
 // thunks
@@ -42,6 +45,19 @@ export const loadSpot = (id) => async (dispatch) => {
   dispatch(setSpot(data))
 }
 
+export const editSpot = (newSpotData) => async (dispatch) => {
+  const { world, location, mainImage, mainImageAlt, description, price } = newSpotData
+  const res = await csrfFetch(`/api/spots/${newSpotData.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ world, location, mainImage, mainImageAlt, description, price }),
+    })
+  
+  const data = await res.json();
+  console.log('data from editspot in store', data)
+
+  dispatch(setSpot(data))
+}
+
 // end of thunks
 /////////////////////////////////////////
 // reducer
@@ -49,7 +65,7 @@ export const loadSpot = (id) => async (dispatch) => {
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-  let newState = {...state};
+  let newState = { ...state };
   switch (action.type) {
     // cases
     case LOAD_SPOTS:
