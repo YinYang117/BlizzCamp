@@ -44,10 +44,12 @@ router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
   // ^ play with this final statement. res.json blank? or return
 }));
 
-router.get('/', asyncHandler(async (req, res) => {
-  const spots = await Spot.allSpots();
-  return res.json({ spots })
-}));
+router.get('/:spotId', asyncHandler(async (req, res) => {
+  const id = req.params.spotId;
+  const idInt = parseInt(id, 10);
+  const spot = await Spot.findByPk(idInt)
+  return res.json(spot)
+}))
 
 router.get('/user/:userId(\\d+)', asyncHandler(async (req, res) => {
   const id = parseInt(req.params.useId, 10);
@@ -60,6 +62,11 @@ router.post('/new', validateSpot, asyncHandler(async (req, res) => {
   const spot = await Spot.create({ world, location, description, price });
 
   return res.json({ spot });
+}));
+
+router.get('/', asyncHandler(async (req, res) => {
+  const spots = await Spot.allSpots();
+  return res.json({ spots })
 }));
 
 module.exports = router;

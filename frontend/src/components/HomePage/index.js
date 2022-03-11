@@ -10,18 +10,16 @@ import './HomePage.css';
 function HomePage({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const spotsArr = useSelector(state => state.spots.spotsArr);
+  const spots = useSelector(state => Object.values(state.spots));
 
   useEffect(() => {
     dispatch(spotActions.loadSpots())
-
     //store action to get spots
   }, [dispatch]);
 
   return (
     <>
-
-      {spotsArr && <div className='home-page'>
+      <div className='home-page'>
         {!sessionUser && <HomePageIntro />}
         {!sessionUser && <SearchLoggedOut />}
         {!sessionUser && <img
@@ -29,12 +27,12 @@ function HomePage({ isLoaded }) {
           alt='home splash art before user login'
           className='splash-art'
         />}
-          <div className='home-spots-container'>
-            {spotsArr.map(spot =>
-              <SpotCard key={spot.id} spot={spot} />
-            )}
-          </div>
-      </div>}
+        && <div className='home-spots-container'>
+          {spots.map(spot =>
+            <SpotCard key={spot.id} spot={spot} />
+          )}
+        </div>
+      </div>
     </>
   );
 }

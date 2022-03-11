@@ -2,10 +2,11 @@ import { useDispatch } from 'react-redux';
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOTS = 'spots/loadSpots';
+const LOAD_SPOT = 'spots/loadSpot';
 
 // link actions to cases
 /////////////////////////////////////////
-// actions 
+// action creators
 
 const setSpots = (spots) => {
   return {
@@ -14,31 +15,48 @@ const setSpots = (spots) => {
   };
 };
 
+const setSpot = (spot) => {
+  return {
+    type: LOAD_SPOT,
+    payload: spot,
+  };
+};
+
+// end of action creators
+/////////////////////////////////////////
+// thunks
+
 export const loadSpots = () => async (dispatch) => {
   const res = await csrfFetch('/api/spots')
   const data = await res.json();
-  // data normalized should look like:
-  // state.spots { spotsArr: [
-  //  {spotId: { spot obj }}
-  //  {spotId: { spot obj }}
-  // ]}
-  dispatch(setSpots(data.spots))
-  return data
+  const newSpots = {};
+
+  data.spots.forEach(spot => newSpots[spot.id] = spot);
+  dispatch(setSpots(newSpots))
 }
 
-// end of actions
+export const loadSpot = (id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${id}`)
+  const data = await res.json();
+
+  dispatch(setSpot(data))
+}
+
+// end of thunks
 /////////////////////////////////////////
 // reducer
 
-const initialState = { spotsArr: null };
+const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-  let newState;
+  let newState = {...state};
   switch (action.type) {
     // cases
     case LOAD_SPOTS:
-      newState = Object.assign({}, state);
-      newState.spotsArr = action.payload;
+      newState = action.payload
+      return newState;
+    case LOAD_SPOT:
+      newState[action.payload.id] = action.payload
       return newState;
     default:
       return state;

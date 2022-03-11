@@ -21,6 +21,10 @@ const removeUser = () => {
   };
 };
 
+// end of action creators
+/////////////////////////////////////////
+// thunks
+
 export const login = ( user ) => async (dispatch) => {
   const { credential, password } = user;
 
@@ -69,10 +73,9 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
-// end of actions
+// end of thunks
 /////////////////////////////////////////
 // reducer
-
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
