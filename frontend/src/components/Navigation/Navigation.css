@@ -4,6 +4,7 @@
   background-color: #144E99;
   height: 70px;
   width: 100vw;
+  display: flex;
 }
 
 .fa-user-astronaut{

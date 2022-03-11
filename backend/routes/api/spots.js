@@ -7,6 +7,8 @@ const { Spot } = require('../../db/models');
 const router = express.Router();
 
 // VALIDATORS
+
+// TO DO: ADD MORE VALIDATORS, AND HANDLE THE ERRORS
 const validateSpot = [
   check('world')
     .exists({ checkFalsy: true })
@@ -31,7 +33,7 @@ router.delete('/:spotId(\\d+)', asyncHandler(async (req, res) => {
   const doomedSpot = await Spot.findByPk(spotId);
   await doomedSpot.destroy();
   res.json({})
-  // ^ play with this final statement. res.json blank? or return
+  // ^res.json blank? or return, or "status": "deleted" hehe
 }));
 
 router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
@@ -58,15 +60,15 @@ router.get('/:spotId', asyncHandler(async (req, res) => {
 // })); 
 
 router.post('/new', validateSpot, asyncHandler(async (req, res) => {
-  const { world, location, description, price } = req.body;
-  const spot = await Spot.create({ world, location, description, price });
-
-  return res.json({ spot });
+  const { world, location, mainImage, mainImageAlt, description, price } = req.body;
+  const spot = await Spot.create({ world, location,  mainImage, mainImageAlt, description, price });
+  return res.json(spot);
 }));
 
 router.get('/', asyncHandler(async (req, res) => {
   const spots = await Spot.allSpots();
   return res.json({ spots })
+  // If I delete the { } ^ I'll need to change how I key into this in a few components
 }));
 
 module.exports = router;

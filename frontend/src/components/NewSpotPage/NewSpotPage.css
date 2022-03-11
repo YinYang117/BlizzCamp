@@ -1,0 +1,20 @@
+.spot-details-page {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spot-card-title-container {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.spot-price {
+  margin: 10px;
+}
+
+.spot-location {
+  margin: 10px;
+}

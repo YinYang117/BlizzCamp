@@ -22,12 +22,18 @@ const setSpot = (spot) => {
   };
 };
 
-// const editSpot = (newSpotData) => {
-// }
+const updateSpotExistence = () => {
+  return { type: LOAD_SPOTS }
+}
 
 // end of action creators
 /////////////////////////////////////////
 // thunks
+
+export const deleteSpot = (id) => async (dispatch) => {
+  await csrfFetch(`/api/spots/${id}`, { method: 'DELETE' })
+  dispatch(updateSpotExistence());
+}
 
 export const loadSpots = () => async (dispatch) => {
   const res = await csrfFetch('/api/spots')
@@ -45,15 +51,28 @@ export const loadSpot = (id) => async (dispatch) => {
   dispatch(setSpot(data))
 }
 
-export const editSpot = (newSpotData) => async (dispatch) => {
-  const { world, location, mainImage, mainImageAlt, description, price } = newSpotData
-  const res = await csrfFetch(`/api/spots/${newSpotData.id}`, {
+export const editSpot = (editedSpot) => async (dispatch) => {
+  const { world, location, mainImage, mainImageAlt, description, price } = editedSpot
+  const res = await csrfFetch(`/api/spots/${editedSpot.id}`, {
       method: 'PUT',
       body: JSON.stringify({ world, location, mainImage, mainImageAlt, description, price }),
     })
   
   const data = await res.json();
   console.log('data from editspot in store', data)
+
+  dispatch(setSpot(data))
+}
+
+export const newSpot = (newSpot) => async (dispatch) => {
+  const { world, location, mainImage, mainImageAlt, description, price } = newSpot
+  const res = await csrfFetch('/api/spots/new', {
+      method: 'POST',
+      body: JSON.stringify({ world, location, mainImage, mainImageAlt, description, price }),
+    })
+  
+  const data = await res.json();
+  console.log('data from newSpot in store', data)
 
   dispatch(setSpot(data))
 }

@@ -43,7 +43,14 @@ function SpotDetailsPage() {
     if (price) newSpotData.price = price
     dispatch(spotActions.editSpot(newSpotData))
     dispatch(spotActions.loadSpot(id))
+    setShowEditForm(!showEditForm)
   };
+
+  const deleteSpotSubmit = () => {
+    dispatch(spotActions.deleteSpot(id))
+    dispatch(spotActions.loadSpots());
+    redirectHome(); 
+  }
 
   // TODO what does Name='' do in my inputs? == to className
   return (
@@ -62,8 +69,13 @@ function SpotDetailsPage() {
           <div className='spot-price'>Price: {spot?.price}</div>
         </div>
         <div className="spot-description" placeholder="description" id="spot-description-div" >{spot?.description}</div>
-        <button id="spot-edit" onClick={e => setShowEditForm(true)}>Edit</button>
-        <form onSubmit={e => {
+        <div className='button-container'>
+          <button id="spot-edit" onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
+          <button onClick={deleteSpotSubmit} id="spot-delete">Delete</button>
+          <button onClick={redirectHome}>Back to Home Page</button>
+        </div>
+      </div>}
+      {showEditForm && <form onSubmit={e => {
             e.preventDefault();
             submitChanges();
           }}>
@@ -74,10 +86,7 @@ function SpotDetailsPage() {
             <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
             <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
             <button id="spot-edit-submit" type='submit' >Submit Edits</button>
-          </form>
-        <button id="spot-delete">Delete</button>
-        <button onClick={redirectHome}>Back to Home Page</button>
-      </div>}
+      </form>}
     </>
   );
 }
