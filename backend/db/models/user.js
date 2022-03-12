@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [4, 30],
+        len: [4, 60],
         // isEmail: false would like to test this out to see if it could work. Not sure
         isNotEmail(value) {
           if (Validator.isEmail(value)) { throw new Error('Cannot be an email.') }
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 256],
+        len: [7, 256],
         isEmail: true
       }
     },

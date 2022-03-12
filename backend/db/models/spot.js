@@ -9,35 +9,50 @@ module.exports = (sequelize, DataTypes) => {
     },
     world: {
       allowNull: false,
-      type: DataTypes.STRING
-      
+      type: DataTypes.STRING,
+      validate: {
+         len: [2, 60]
+      }
     },
     location: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        len: [4, 256]
+      }
     },
     mainImage: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        len: [4, 256]
+      }
     },
     mainImageAlt: {
-      type: DataTypes.STRING
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        len: [2, 256]
+      }
     },
     description: {
       type: DataTypes.STRING
     },
     price: {
-      type: DataTypes.STRING
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+         len: [1, 256]
+      }
     },
   }, {});
 
 
-  // .create is a sequelize method for model classes that combines build and save
+  // .create sequelize method for model classes, ='s build + save
   Spot.newSpot = async function ({ world, location, description, price }) {
     const newSpot = await Spot.create({
       userId, world, location, mainImage, mainImageAlt, description, price
     });
-    console.log('New spot from Spot model', newSpot)
     return await newSpot;
   };
 
@@ -46,7 +61,6 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Spot.getSpotsByUserId = async function ({ userId }) {
-    console.log('userId should be Int here i think. In Spot Model:', userId)
     return await Spot.findAll({ where: { userId }})
   }
 

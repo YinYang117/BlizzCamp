@@ -14,25 +14,27 @@ module.exports = {
       },
       world: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(60)
       },
       location: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(256)
       },
       mainImage: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(256)
       },
       mainImageAlt: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING(256)
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(256)
       },
       price: {
-        type: Sequelize.STRING
-      },
+        allowNull: false,
+        type: Sequelize.STRING(256)
+      },  
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
