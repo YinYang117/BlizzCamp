@@ -22,12 +22,18 @@ function SpotDetailsPage() {
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
   const [showEditForm, setShowEditForm] = useState(false)
+  const [isOwner, setIsOwner] = useState(false)
   // setWorld(spot.world)
 
   useEffect(() => {
     dispatch(spotActions.loadSpot(id))
     //store action to get spots
   }, [dispatch]);
+
+  useEffect(() => {
+    setIsOwner(sessionUser.id === spot.userId)
+    console.log('user is owner:', isOwner)
+  },[sessionUser, spot, isOwner])
 
   const redirectHome = () => {
     history.push('/')
@@ -70,7 +76,7 @@ function SpotDetailsPage() {
         </div>
         <div className="spot-description" placeholder="description" id="spot-description-div" >{spot?.description}</div>
         <div className='button-container'>
-          <button id="spot-edit" onClick={e => setShowEditForm(!showEditForm)}>Edit</button>
+          {isOwner && <button id="spot-edit" onClick={e => setShowEditForm(!showEditForm)}>Edit</button>}
           <button onClick={deleteSpotSubmit} id="spot-delete">Delete</button>
           <button onClick={redirectHome}>Back to Home Page</button>
         </div>
