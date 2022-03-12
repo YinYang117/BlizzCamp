@@ -16,6 +16,7 @@ function NewSpotPage() {
   const [mainImageAlt, setMainImageAlt] = useState('')
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const redirectHome = () => history.push('/')
   // if user stops existing in state.session => Go home
@@ -30,10 +31,12 @@ function NewSpotPage() {
     const newSpotData = { userId, world, location, mainImage, mainImageAlt, description, price };
     console.log('id from new spot', userId)
     dispatch(spotActions.newSpot(newSpotData))
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && (data.errors)) setErrors(data.errors);
+      //.errors here is an array of validation error.msg's
+    });
     redirectHome();
-    // TODO redirect to the spot details page newly created
-    // make new spot created return the results as json
-    // so i can get the id...
   };
 
   return (
@@ -55,6 +58,11 @@ function NewSpotPage() {
         <input onChange={e => setPrice(e.target.value)} type="text" placeholder='price' value={price} required />
         <button id="spot-edit-submit" type='submit' >Submit New Spot</button>
       </form>
+      {errors && (
+        <ul>
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+      )}
     </>
   );
 }
