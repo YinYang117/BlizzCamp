@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import * as spotActions from '../../store/spots'
-import * as sessionActions from "../../store/session"
 import './NewSpotPage.css';
 
 function NewSpotPage() {
@@ -48,12 +47,12 @@ function NewSpotPage() {
         e.preventDefault();
         submitSpot();
       }}>
-        <input onChange={e => setWorld(e.target.value)} type="text" placeholder='world' value={world} />
-        <input onChange={e => setLocation(e.target.value)} type="text" placeholder='location' value={location} />
-        <input onChange={e => setMainImage(e.target.value)} type="text" placeholder='mainImage url' value={mainImage} />
-        <input onChange={e => setMainImageAlt(e.target.value)} type="text" placeholder='mainImage alt desc' value={mainImageAlt} />
-        <input onChange={e => setDescription(e.target.value)} type="text" placeholder=' spot description' value={description} />
-        <input onChange={e => setPrice(e.target.value)} type="text" placeholder='price' value={price} />
+        <input onChange={e => setWorld(e.target.value)} type="text" placeholder='world' value={world} required />
+        <input onChange={e => setLocation(e.target.value)} type="text" placeholder='location' value={location} required />
+        <input onChange={e => setMainImage(e.target.value)} type="text" placeholder='mainImage url' value={mainImage} required />
+        <input onChange={e => setMainImageAlt(e.target.value)} type="text" placeholder='mainImage alt desc' value={mainImageAlt} required />
+        <input onChange={e => setDescription(e.target.value)} type="text" placeholder=' spot description' value={description} required />
+        <input onChange={e => setPrice(e.target.value)} type="text" placeholder='price' value={price} required />
         <button id="spot-edit-submit" type='submit' >Submit New Spot</button>
       </form>
     </>
