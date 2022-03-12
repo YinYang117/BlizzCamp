@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import * as spotActions from '../../store/spots'
+import * as reviewActions from '../../store/reviews'
 import './SpotDetailsPage.css';
 
 function SpotDetailsPage() {
@@ -27,6 +28,7 @@ function SpotDetailsPage() {
 
   useEffect(() => {
     dispatch(spotActions.loadSpot(id))
+    dispatch(reviewActions.loadSpotReviews(id))
     //store action to get spots
   }, [dispatch]);
 
@@ -81,7 +83,7 @@ function SpotDetailsPage() {
           <button onClick={redirectHome}>Back to Home Page</button>
         </div>
       </div>}
-      {showEditForm && <form onSubmit={e => {
+      {showEditForm && isOwner && <form onSubmit={e => {
             e.preventDefault();
             submitChanges();
           }}>
