@@ -14,7 +14,7 @@ function SpotDetailsPage() {
   let id = parseInt(spotId);
 
   const spot = useSelector(state => state.spots[id]);
-
+  const spotReviews = useSelector(state => state.reviews.spotId[id])
 
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
@@ -95,6 +95,15 @@ function SpotDetailsPage() {
             <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
             <button id="spot-edit-submit" type='submit' >Submit Edits</button>
       </form>}
+      {spotReviews && 
+      <div className='reviews-container'>
+      {spotReviews.map(review =>
+            <div key={review.id}>
+              Rating: {review.rating}, Review: {review.review}
+            </div>
+          )}
+      </div>
+      }
     </>
   );
 }

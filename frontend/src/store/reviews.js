@@ -8,7 +8,7 @@ const LOAD_SPOT_REVIEWS = 'reviews/loadSpot';
 /////////////////////////////////////////
 // action creators
 
-
+loadSpotReviews
 
 // end of action creators
 /////////////////////////////////////////

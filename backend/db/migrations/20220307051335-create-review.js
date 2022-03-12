@@ -16,7 +16,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      review: {
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      description: {
         allowNull: false,
         type: Sequelize.STRING
       },
