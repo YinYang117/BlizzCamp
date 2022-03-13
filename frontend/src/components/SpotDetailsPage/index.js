@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import * as spotActions from '../../store/spots'
 import * as reviewActions from '../../store/reviews'
 import './SpotDetailsPage.css';
+import ReviewCard from "./ReviewCard";
 
 function SpotDetailsPage() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function SpotDetailsPage() {
   let id = parseInt(spotId);
 
   const spot = useSelector(state => state.spots[id]);
-  const spotReviews = useSelector(state => state.reviews.spotId[id])
+  const reviews = useSelector(state => state.reviews.spotId)
 
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
@@ -33,9 +34,9 @@ function SpotDetailsPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    setIsOwner(sessionUser.id === spot.userId)
+    setIsOwner(sessionUser?.id === spot?.userId)
     console.log('user is owner:', isOwner)
-  },[sessionUser, spot, isOwner])
+  }, [sessionUser, spot, isOwner])
 
   const redirectHome = () => {
     history.push('/')
@@ -56,9 +57,15 @@ function SpotDetailsPage() {
 
   const deleteSpotSubmit = () => {
     dispatch(spotActions.deleteSpot(id))
-    dispatch(spotActions.loadSpots());
-    redirectHome(); 
+    // dispatch(spotActions.loadSpots()); // If i delete this, will it fix the flickering the Bill mentioned...
+    redirectHome();
   }
+
+  useEffect(() => {
+    console.log(reviews)
+
+  },[reviews])
+
 
   // TODO what does Name='' do in my inputs? == to className
   return (
@@ -79,31 +86,29 @@ function SpotDetailsPage() {
         <div className="spot-description" placeholder="description" id="spot-description-div" >{spot?.description}</div>
         <div className='button-container'>
           {isOwner && <button id="spot-edit" onClick={e => setShowEditForm(!showEditForm)}>Edit</button>}
-          <button onClick={deleteSpotSubmit} id="spot-delete">Delete</button>
+          {isOwner && <button onClick={deleteSpotSubmit} id="spot-delete">Delete</button>}
           <button onClick={redirectHome}>Back to Home Page</button>
         </div>
       </div>}
       {showEditForm && isOwner && <form onSubmit={e => {
-            e.preventDefault();
-            submitChanges();
-          }}>
-            <input onChange={e => setWorld(e.target.value)} type="text" name="spot-world" placeholder={spot?.world} id="spot-world-input" value={world} />
-            <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder={spot?.location} id="spot-location-input" value={location} />
-            <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder={spot?.mainImage} id="spot-mainImage-input" value={mainImage} />
-            <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder={spot?.mainImageAlt} id="spot-mainImageAlt-input" value={mainImageAlt} />
-            <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
-            <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
-            <button id="spot-edit-submit" type='submit' >Submit Edits</button>
+        e.preventDefault();
+        submitChanges();
+      }}>
+        <input onChange={e => setWorld(e.target.value)} type="text" name="spot-world" placeholder={spot?.world} id="spot-world-input" value={world} />
+        <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder={spot?.location} id="spot-location-input" value={location} />
+        <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder={spot?.mainImage} id="spot-mainImage-input" value={mainImage} />
+        <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder={spot?.mainImageAlt} id="spot-mainImageAlt-input" value={mainImageAlt} />
+        <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
+        <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
+        <button id="spot-edit-submit" type='submit' >Submit Edits</button>
       </form>}
-      {spotReviews && 
+      <div> test top </div>
       <div className='reviews-container'>
-      {spotReviews.map(review =>
-            <div key={review.id}>
-              Rating: {review.rating}, Review: {review.review}
-            </div>
-          )}
+        {reviews?.map(review =>
+          <ReviewCard key={review.id} review={review} />
+        )}
       </div>
-      }
+      <div> test bottom</div>
     </>
   );
 }

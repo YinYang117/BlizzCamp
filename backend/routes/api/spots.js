@@ -46,7 +46,7 @@ const validateSpot = [
   handleValidationErrors
 ];
 
-router.delete('/:spotId(\\d+)', asyncHandler(async (req, res) => {
+router.delete('/:spotId', asyncHandler(async (req, res) => {
   const spotId = parseInt(req.params.spotId, 10);
   const doomedSpot = await Spot.findByPk(spotId);
   await doomedSpot.destroy();
@@ -54,7 +54,7 @@ router.delete('/:spotId(\\d+)', asyncHandler(async (req, res) => {
   // ^res.json blank? or return, or "status": "deleted" hehe
 }));
 
-router.put('/:spotId(\\d+)', asyncHandler(async (req, res) => {
+router.put('/:spotId', asyncHandler(async (req, res) => {
   const { world, location, mainImage, mainImageAlt, description, price } = req.body;
   const spotId = parseInt(req.params.spotId, 10);
   const spot = await Spot.findByPk(spotId);

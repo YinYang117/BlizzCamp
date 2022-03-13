@@ -6,11 +6,11 @@ const { requireAuth } = require('../../utils/auth.js');
 const usersRouter = require('./users');
 const sessionRouter = require('./session');
 const spotsRouter = require('./spots');
-const reviewsRouter = require('./review')
+const reviewsRouter = require('./reviews')
 
 router.use('/users', usersRouter);
 router.use('/session', sessionRouter);
 router.use('/spots', spotsRouter)
-router.user('/reviews', reviewsRouter);
+router.use('/reviews', reviewsRouter);
 
 module.exports = router;
