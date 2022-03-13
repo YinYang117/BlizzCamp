@@ -104,7 +104,7 @@ function SpotDetailsPage() {
       </form>}
       <div> test top </div>
       <div className='reviews-container'>
-        {reviews?.map(review =>
+        {reviews && Object.keys(reviews).map(review =>
           <ReviewCard key={review.id} review={review} />
         )}
       </div>
