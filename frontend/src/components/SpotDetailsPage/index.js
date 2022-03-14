@@ -15,16 +15,19 @@ function SpotDetailsPage() {
   let id = parseInt(spotId);
 
   const spot = useSelector(state => state.spots[id]);
-  const reviews = useSelector(state => Object.values(state.reviews))
+  const reviews = useSelector(state => Object.values(state.reviews));
 
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
   const [mainImage, setMainImage] = useState(spot?.mainImage);
-  const [mainImageAlt, setMainImageAlt] = useState(spot?.mainImageAlt)
+  const [mainImageAlt, setMainImageAlt] = useState(spot?.mainImageAlt);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
-  const [showEditForm, setShowEditForm] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [reviewTitle, setReviewTitle] = useState('');
+  const [reviewRating, setReviewRating] = useState('');
+  const [reviewDescription, setReviewDescription] = useState('');
 
   useEffect(() => {
     dispatch(spotActions.loadSpot(id))
@@ -61,11 +64,16 @@ function SpotDetailsPage() {
     redirectHome();
   }
 
-  const submitNewReview = (review) => {
+  const submitNewReview = () => {
     const userId = sessionUser.id
     const spotId = id
-    review[userId] = userId
-    review[spotId] = spotId
+    const title = reviewTitle
+    const rating = reviewRating 
+    const description = reviewDescription
+    const review = {
+      userId, spotId, title, rating, description
+    }
+    console.log('review spot detaiLs page', review)
     dispatch(reviewActions.newReview(review))
   }
 
@@ -113,13 +121,10 @@ function SpotDetailsPage() {
         e.preventDefault();
         submitNewReview();
       }}>
-        <input onChange={e => setWorld(e.target.value)} type="text" name="spot-world" placeholder={spot?.world} id="spot-world-input" value={world} />
-        <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder={spot?.location} id="spot-location-input" value={location} />
-        <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder={spot?.mainImage} id="spot-mainImage-input" value={mainImage} />
-        <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder={spot?.mainImageAlt} id="spot-mainImageAlt-input" value={mainImageAlt} />
-        <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
-        <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
-        <button id="spot-edit-submit" type='submit' >Submit Edits</button>
+        <input onChange={e => setReviewTitle(e.target.value)} type="text" name="review-title" placeholder={'title'} id="review-title-input" value={reviewTitle} />
+        <input onChange={e => setReviewRating(e.target.value)} type="text" name="review-rating" placeholder={'rating'} id="review-rating-input" value={reviewRating} />
+        <input onChange={e => setReviewDescription(e.target.value)} type="text" name="review-description" placeholder={'description'} id="review-description-input" value={reviewDescription} />
+        <button id="new-review-submit" type='submit' >Submit Review</button>
       </form>
     </>
   );
