@@ -8,20 +8,22 @@ const { Review } = require('../../db/models');
 
 // VALIDATORS
 const validateReview = [
-  check()
+  check(title)
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage(''),
-  check()
+    .withMessage('Please provide a title'),
+  check(rating)
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage(''),
+    .withMessage('Please provide a rating'),
   handleValidationErrors
 ];
 
 // new review
-router.post('/', validateReview, asyncHandler(async (req, res, next) => {
-
+router.post('/new', validateReview, asyncHandler(async (req, res, next) => {
+  const { userId, spotId, title, rating, description } = req.body
+  const review = await Review.create({ userId, spotId, title, rating, description })
+  return res.json(review);
 }));
 
 

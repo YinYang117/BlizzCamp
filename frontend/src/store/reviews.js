@@ -55,9 +55,9 @@ export const loadReview = (id) => async (dispatch) => {
 
 export const newReview = (newReview) => async (dispatch) => {
   const { userId, spotId, title, rating, description } = newReview
-  const res = await csrfFetch('/api/spots/new', {
+  const res = await csrfFetch('/api/reviews/new', {
     method: 'POST',
-    body: JSON.stringify({ userId, spotId, title, rating, description }),
+    body: JSON.stringify({userId, spotId, title, rating, description}),
   })
   const data = await res.json();
   console.log('data from newReview in store', data)
