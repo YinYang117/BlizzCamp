@@ -8,11 +8,11 @@ const { Review } = require('../../db/models');
 
 // VALIDATORS
 const validateReview = [
-  check(title)
+  check('title')
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Please provide a title'),
-  check(rating)
+  check('rating')
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Please provide a rating'),
@@ -27,12 +27,11 @@ router.post('/new', validateReview, asyncHandler(async (req, res, next) => {
 }));
 
 
-router.delete('/:reviewId', (req, res) => {
+router.delete('/:reviewId', asyncHandler(async (req, res) => {
   const reviewId = parseInt(req.params.reviewId, 10);
   const doomedReview = await Review.findByPk(reviewId)
-  await doomedReview.destroy();
-  
-});
+  await doomedReview.destroy(); 
+}));
 
 
 router.get('/spot/:spotId', asyncHandler(async (req, res) => {

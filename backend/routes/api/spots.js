@@ -56,7 +56,7 @@ router.delete('/:spotId', asyncHandler(async (req, res) => {
 
 router.put('/:spotId', asyncHandler(async (req, res) => {
   const { world, location, mainImage, mainImageAlt, description, price } = req.body;
-
+  const spotId = parseInt(req.params.spotId, 10);
   const spot = await Spot.findByPk(spotId);
   spot.update({ world, location, mainImage, mainImageAlt, description, price })
   
