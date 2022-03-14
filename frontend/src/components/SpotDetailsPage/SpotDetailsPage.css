@@ -18,3 +18,10 @@
 .spot-location {
   margin: 10px;
 }
+
+.review-description {
+  margin-bottom: 30px;
+  background-color: rgb(98, 0, 255);
+  min-height: 30px;
+  border-radius: 10px;
+}

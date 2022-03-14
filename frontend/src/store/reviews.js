@@ -28,11 +28,23 @@ const setReview = (review) => {
     type:LOAD_REVIEW,
     payload: review,
   }
+} 
+
+const updateReviews = () => {
+  return {
+    type:LOAD_SPOT_REVIEWS,
+  }
 }
 
 // end of action creators
 /////////////////////////////////////////
 // thunks
+
+export const deleteReview = (id) => async (dispatch) => {
+  console.log('id from reviews store',id)
+  await csrfFetch(`/api/reviews/${id}`, { method: 'DELETE'})
+  dispatch(updateReviews());
+}
 
 export const loadSpotReviews = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/reviews/spot/${id}`)
