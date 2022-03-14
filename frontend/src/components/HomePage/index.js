@@ -17,6 +17,10 @@ function HomePage({ isLoaded }) {
     //store action to get spots
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(spots)
+  },[spots])
+
   return (
     <>
       {spots && <div className='home-page'>

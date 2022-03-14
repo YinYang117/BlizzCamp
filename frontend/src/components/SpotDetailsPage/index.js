@@ -15,7 +15,7 @@ function SpotDetailsPage() {
   let id = parseInt(spotId);
 
   const spot = useSelector(state => state.spots[id]);
-  const reviews = useSelector(state => state.reviews.spotId)
+  const reviews = useSelector(state => state.reviews)
 
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
@@ -24,14 +24,22 @@ function SpotDetailsPage() {
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
   const [showEditForm, setShowEditForm] = useState(false)
-  const [isOwner, setIsOwner] = useState(false)
-  // setWorld(spot.world)
+  const [isOwner, setIsOwner] = useState(false);
+  const [reviewObjs, setReviewObjs] = useState([]);
 
   useEffect(() => {
     dispatch(spotActions.loadSpot(id))
     dispatch(reviewActions.loadSpotReviews(id))
     //store action to get spots
   }, [dispatch]);
+
+  useEffect(() => {
+    setReviewObjs([])
+    Object.values(reviews).forEach(val => {
+      reviewObjs.push(val)
+    })
+    console.log(reviewObjs)
+  },[reviews])
 
   useEffect(() => {
     setIsOwner(sessionUser?.id === spot?.userId)
@@ -60,12 +68,6 @@ function SpotDetailsPage() {
     // dispatch(spotActions.loadSpots()); // If i delete this, will it fix the flickering the Bill mentioned...
     redirectHome();
   }
-
-  useEffect(() => {
-    console.log(reviews)
-
-  },[reviews])
-
 
   // TODO what does Name='' do in my inputs? == to className
   return (
@@ -104,9 +106,10 @@ function SpotDetailsPage() {
       </form>}
       <div> test top </div>
       <div className='reviews-container'>
-        {reviews && Object.keys(reviews).map(review =>
+        {reviewObjs && reviewObjs.map(review => {
           <ReviewCard key={review.id} review={review} />
-        )}
+        })
+        }
       </div>
       <div> test bottom</div>
     </>
