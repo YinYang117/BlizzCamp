@@ -61,6 +61,11 @@ function SpotDetailsPage() {
     redirectHome();
   }
 
+  const submitNewReview = () => {
+    // TODO put the action Im making here
+    dispatch(reviewActions)
+  }
+
   // TODO what does Name='' do in my inputs? == to className maybe?
   return (
     <>
@@ -101,6 +106,18 @@ function SpotDetailsPage() {
           return <ReviewCard key={review.id} review={review} />
         })}
       </div>
+      <form onSubmit={e => {
+        e.preventDefault();
+        submitNewReview();
+      }}>
+        <input onChange={e => setWorld(e.target.value)} type="text" name="spot-world" placeholder={spot?.world} id="spot-world-input" value={world} />
+        <input onChange={e => setLocation(e.target.value)} type="text" name="spot-location" placeholder={spot?.location} id="spot-location-input" value={location} />
+        <input onChange={e => setMainImage(e.target.value)} type="text" name="spot-mainImage" placeholder={spot?.mainImage} id="spot-mainImage-input" value={mainImage} />
+        <input onChange={e => setMainImageAlt(e.target.value)} type="text" name="spot-mainImageAlt" placeholder={spot?.mainImageAlt} id="spot-mainImageAlt-input" value={mainImageAlt} />
+        <input onChange={e => setDescription(e.target.value)} type="text" name="spot-description" placeholder={spot?.description} id="spot-description-input" value={description} />
+        <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
+        <button id="spot-edit-submit" type='submit' >Submit Edits</button>
+      </form>
     </>
   );
 }

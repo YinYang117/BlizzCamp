@@ -53,6 +53,17 @@ export const loadReview = (id) => async (dispatch) => {
    return null
 }
 
+export const newReview = (newReview) => async (dispatch) => {
+  const { userId, spotId, title, rating, description } = newReview
+  const res = await csrfFetch('/api/spots/new', {
+    method: 'POST',
+    body: JSON.stringify({ userId, spotId, title, rating, description }),
+  })
+  const data = await res.json();
+  console.log('data from newReview in store', data)
+  dispatch(setReview(data))
+}
+
 // end of thunks
 /////////////////////////////////////////
 // reducer

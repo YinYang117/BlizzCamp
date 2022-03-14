@@ -69,11 +69,8 @@ export const newSpot = (newSpot) => async (dispatch) => {
   const res = await csrfFetch('/api/spots/new', {
       method: 'POST',
       body: JSON.stringify({ userId, world, location, mainImage, mainImageAlt, description, price }),
-    })
-  
+  })
   const data = await res.json();
-  console.log('data from newSpot in store', data)
-
   dispatch(setSpot(data))
 }
 
