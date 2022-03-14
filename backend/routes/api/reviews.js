@@ -27,8 +27,11 @@ router.post('/new', validateReview, asyncHandler(async (req, res, next) => {
 }));
 
 
-router.delete('/', (req, res) => {
-
+router.delete('/:reviewId', (req, res) => {
+  const reviewId = parseInt(req.params.reviewId, 10);
+  const doomedReview = await Review.findByPk(reviewId)
+  await doomedReview.destroy();
+  
 });
 
 

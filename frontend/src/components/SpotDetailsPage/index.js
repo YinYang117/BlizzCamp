@@ -61,9 +61,12 @@ function SpotDetailsPage() {
     redirectHome();
   }
 
-  const submitNewReview = () => {
-    // TODO put the action Im making here
-    dispatch(reviewActions)
+  const submitNewReview = (review) => {
+    const userId = sessionUser.id
+    const spotId = id
+    review[userId] = userId
+    review[spotId] = spotId
+    dispatch(reviewActions.newReview(review))
   }
 
   // TODO what does Name='' do in my inputs? == to className maybe?
