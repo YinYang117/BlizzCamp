@@ -38,7 +38,7 @@ function SpotDetailsPage() {
     Object.values(reviews).forEach(val => {
       reviewObjs.push(val)
     })
-    console.log(reviewObjs)
+    console.log("reviews obj", reviewObjs)
   },[reviews])
 
   useEffect(() => {
@@ -106,10 +106,9 @@ function SpotDetailsPage() {
       </form>}
       <div> test top </div>
       <div className='reviews-container'>
-        {reviewObjs && reviewObjs.map(review => {
-          <ReviewCard key={review.id} review={review} />
-        })
-        }
+        {reviewObjs.map(review => {
+          return <ReviewCard key={review.id} review={review} />
+        })}
       </div>
       <div> test bottom</div>
     </>
