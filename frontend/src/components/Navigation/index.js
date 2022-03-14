@@ -13,7 +13,7 @@ function Navigation({ isLoaded }){
   const history = useHistory();
 
   const loginDemoUser = () => {
-    const demoUser = { username: 'demo-user', password: 'password1!' }
+    const demoUser = { "credential": 'demo-user', "password": 'password1!' }
     dispatch(sessionActions.login(demoUser))
   }
 
