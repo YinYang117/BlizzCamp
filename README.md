@@ -1,5 +1,13 @@
 # BlizzCamp
 
+BlizzCamp is a HipCamp clone.
+
+Check out the github reop: https://github.com/YinYang117/BlizzCamp
+
+Check out the live deployment on Heroku: https://blizz-camp.herokuapp.com/
+
+##Index
+
 ## Available Scripts
 
 In the project directory, you can run:
