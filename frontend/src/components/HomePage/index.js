@@ -17,9 +17,9 @@ function HomePage({ isLoaded }) {
     //store action to get spots
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(spots)
-  },[spots])
+  // useEffect(() => {
+  //   console.log(spots)
+  // },[spots])
 
   return (
     <>

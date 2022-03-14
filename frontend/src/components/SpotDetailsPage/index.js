@@ -15,7 +15,7 @@ function SpotDetailsPage() {
   let id = parseInt(spotId);
 
   const spot = useSelector(state => state.spots[id]);
-  const reviews = useSelector(state => state.reviews)
+  const reviews = useSelector(state => Object.values(state.reviews))
 
   const [world, setWorld] = useState(spot?.world);
   const [location, setLocation] = useState(spot?.location);
@@ -25,26 +25,18 @@ function SpotDetailsPage() {
   const [price, setPrice] = useState(spot?.price);
   const [showEditForm, setShowEditForm] = useState(false)
   const [isOwner, setIsOwner] = useState(false);
-  const [reviewObjs, setReviewObjs] = useState([]);
 
   useEffect(() => {
     dispatch(spotActions.loadSpot(id))
     dispatch(reviewActions.loadSpotReviews(id))
     //store action to get spots
+    console.log("reviews", reviews)
   }, [dispatch]);
-
-  useEffect(() => {
-    setReviewObjs([])
-    Object.values(reviews).forEach(val => {
-      reviewObjs.push(val)
-    })
-    console.log("reviews obj", reviewObjs)
-  },[reviews])
 
   useEffect(() => {
     setIsOwner(sessionUser?.id === spot?.userId)
     console.log('user is owner:', isOwner)
-  }, [sessionUser, spot, isOwner])
+  }, [sessionUser, spot, isOwner]) 
 
   const redirectHome = () => {
     history.push('/')
@@ -69,7 +61,7 @@ function SpotDetailsPage() {
     redirectHome();
   }
 
-  // TODO what does Name='' do in my inputs? == to className
+  // TODO what does Name='' do in my inputs? == to className maybe?
   return (
     <>
       {spot && <div className="spot-details-page">
@@ -104,13 +96,11 @@ function SpotDetailsPage() {
         <input onChange={e => setPrice(e.target.value)} type="text" name="spot-price" placeholder={spot?.price} id="spot-price-input" value={price} />
         <button id="spot-edit-submit" type='submit' >Submit Edits</button>
       </form>}
-      <div> test top </div>
       <div className='reviews-container'>
-        {reviewObjs.map(review => {
+        {reviews && reviews.map(review => {
           return <ReviewCard key={review.id} review={review} />
         })}
       </div>
-      <div> test bottom</div>
     </>
   );
 }
